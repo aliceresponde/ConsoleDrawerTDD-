@@ -148,4 +148,30 @@ public class Canvas {
         return x1 < width && x1 >=1;
     }
 
+    char[][] drawRectangle(int x1, int y1, int x2, int y2) {
+        if(isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)){
+            int min_x = Math.min(x1, x2);
+            int max_x =Math.max(x1, x2);
+            
+            int min_y = Math.min(y1, y2);
+            int max_y = Math.max(y1, y2);
+            
+            for(int h = min_y; h<=max_y ;h++){
+                for (int w=min_x; w <= max_x; w++){
+                   //  -------------------- 
+                  if(h ==min_y || h==max_y){
+                      content[w][h]='x';
+                  }
+                  //|||||||||||
+                  else if(w ==min_x || w== max_x){
+                    content[w][h]='x';
+                  }
+                }
+            }
+        
+        }
+          return content;
+    }
+
+
 }

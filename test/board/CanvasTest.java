@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
  * @author alice
  */
 public class CanvasTest {
+    
+    Canvas canvasInstance ;
 
     public CanvasTest() {
     }
@@ -32,17 +34,73 @@ public class CanvasTest {
 
     @Before
     public void setUp() {
+         int w = 20;
+         int h= 4;
+       
+        canvasInstance = new Canvas();
+        canvasInstance.createCanvas(w, h);
     }
 
     @After
     public void tearDown() {
     }
 
-//    @Test
-//    public void testSomeMethod() {
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test 
+    public void TestDrawRectangle(){
+        System.out.println("***************************************");
+        System.out.println("*DrawRectangle"); 
+        
+        int w = 20;
+        int h= 4;
+        
+        final int x1 = 16;
+        final int y1 = 1;
+        final int x2 = 20;
+        final int y2 = 3;
+        
+        
+         char[][] expectResult = new char[][]{
+            {'-', '|', '|', '|', '|', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', ' ', ' ', ' ', ' ', '-'},
+            {'-', 'x', 'x', 'x', ' ', '-'},
+            {'-', 'x', ' ', 'x', ' ', '-'},
+            {'-', 'x', ' ', 'x', ' ', '-'},
+            {'-', 'x', ' ', 'x', ' ', '-'},
+            {'-', 'x', 'x', 'x', ' ', '-'},
+            {'-', '|', '|', '|', '|', '-'}
+        };
+         
+         System.out.println("canvas expectedResult");
+
+        for (int y = 0; y < h + 2; y++) {
+            for (int x = 0; x < w+2; x++) {
+                System.out.print(expectResult[x][y]);
+            }
+            System.out.println("");
+        }
+        
+        System.out.println("canvas Result");
+        char[][] result= canvasInstance.drawRectangle(x1,y1,x2,y2);
+        canvasInstance.printCanvas();
+        
+        assertArrayEquals(expectResult, result);
+        
+    }
+    
     @Test
     public void TestIsHorizontal() {
         System.out.println("***************************************");
@@ -56,7 +114,7 @@ public class CanvasTest {
         final int w = 20;
         final int h= 4;
         
-        Canvas canvasInstance = new Canvas();
+        
         canvasInstance.createCanvas(w, h);
        
         
