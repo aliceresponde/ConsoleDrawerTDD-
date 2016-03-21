@@ -100,11 +100,11 @@ public class CanvasTest {
       System.out.println("ResultCanvas");  
       int x1 = 10;
       int y1 = 3;
-      char[][] result = canvas.BucketFill( x1, y1, new_color);
+       canvas.BucketFill( x1, y1, new_color);
      
-      assertArrayEquals(expectResult, result);
+      assertArrayEquals(expectResult, canvas.getContent());
       canvas.printCanvas();
-       
+        System.out.println(canvas.getContent().toString());
       
     
     }

@@ -19,6 +19,12 @@ public class Canvas {
     private int height=0;
     private char content[][];
 
+    public char[][] getContent() {
+        return content;
+    }
+    
+    
+
     static boolean isHorizontal(int x1, int y1, int x2, int y2) {
         return y1 == y2;
     }
@@ -173,7 +179,7 @@ public class Canvas {
         return content;
     }
 
-    char[][] BucketFill(int x, int y, char new_color) {
+    void BucketFill(int x, int y, char new_color) {
 
         //original coord valid && it was not nodified (new_color)
         if (isValidCoordinate(x, y) && content[x][y] != new_color) {
@@ -181,10 +187,9 @@ public class Canvas {
             fillWithColor(x, y, previous_color, new_color);
         }else{
             printCanvas();
-            return content;
+            return ;
         }
         
-        return content;
     }
 
     /**
@@ -211,10 +216,9 @@ public class Canvas {
             fillWithColor(x + 1, y, previous_color, new_color);
             fillWithColor(x - 1, y, previous_color, new_color);
         } else {
-            printCanvas();
+//            printCanvas();
             return;
-        }
-                
+        }        
     }
 
 }
