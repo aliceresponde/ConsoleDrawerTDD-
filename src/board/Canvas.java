@@ -5,12 +5,19 @@
  */
 package board;
 
+import java.util.AbstractQueue;
+import java.util.Queue;
+
 /**
  * The class represents the board where the user will draw with commands
  *
  * @author alice
  */
 public class Canvas {
+
+    private int width=0;
+    private int height=0;
+    private char content[][];
 
     static boolean isHorizontal(int x1, int y1, int x2, int y2) {
         return y1 == y2;
@@ -19,10 +26,6 @@ public class Canvas {
     static boolean isVertical(int x1, int y1, int x2, int y2) {
         return x1 == x2;
     }
-
-    private int width;
-    private int height;
-    private char content[][];
 
     char[][] createCanvas(int w, int h) {
         h = h + 2;
@@ -46,9 +49,6 @@ public class Canvas {
                 }
             }
         }
-        
-        printCanvas();
-
         return content;
     }
 
@@ -67,111 +67,154 @@ public class Canvas {
         } else if (isVertical(x1, y1, x2, y2)) {
             drawVerticalLine(x1, y1, x2, y2);
         } else {
-            
-        }
 
+        }
         return content;
     }
 
     /**
-     * Just variation on   x  in  min<=x<=max
+     * Just variation on x in min<=x<=max
+     *
      * @param x1
      * @param y1
      * @param x2
      * @param y2
-     * @return 
+     * @return
      */
-     char[][] drawHorizontalLine(int x1, int y1, int x2, int y2) {
-        if(isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)){
-            System.out.println("ok coord");
-            
+    char[][] drawHorizontalLine(int x1, int y1, int x2, int y2) {
+        if (isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)) {
             int min = Math.min(x1, x2);
             int max = Math.max(x1, x2);
-            
-            for(int x= min; x<=max; x++){
-                content[x][y1]='x';
+
+            for (int x = min; x <= max; x++) {
+                content[x][y1] = 'x';
             }
         }
         printCanvas();
         return content;
     }
-    
+
     /**
-     * Just variation on   y  in  min<=y<=max
-      * @param x1
+     * Just variation on y in min<=y<=max
+     *
+     * @param x1
      * @param y1
      * @param x2
      * @param y2
-     * @return 
+     * @return
      */
-     char[][] drawVerticalLine(int x1, int y1, int x2, int y2) {
-        if(isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)){
-            System.out.println("ok coord");
-            
+    char[][] drawVerticalLine(int x1, int y1, int x2, int y2) {
+        if (isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)) {
             int min = Math.min(y1, y2);
             int max = Math.max(y1, y2);
-           
-            for(int y= min; y<=max; y++){
-                content[x1][y]='x';
+
+            for (int y = min; y <= max; y++) {
+                content[x1][y] = 'x';
             }
         }
         return content;
     }
-    
-   
-    
+
     /**
-     *  1 <= y1 < height && 1 <= x1 < width valid for painting
-     * @param x1
-     * @param y1
-     * @return 
+     * 1 <= y1 < height && 1 <= x1 < width valid for painting @param x1
+     * @
+     *
+     * p
+     * aram y1
+     * @return
      */
     private boolean isValidCoordinate(int x1, int y1) {
-        return  isValidCoordinateX(x1) && isValidCoordinateY(y1);
+        return isValidCoordinateX(x1) && isValidCoordinateY(y1);
     }
 
     /**
-     *  1 <= y1 < height  valid for painting
-     * @param y1
-     * @return 
+     * 1 <= y1 < height valid for painting @param y1
+     * @re
+     *
+     * t
+     * urn
      */
     private boolean isValidCoordinateY(int y1) {
-        return y1 < height && y1 >=1;  
+        return y1 < height && y1 >= 1;
     }
 
     /**
-     *  1 <= x1 < width  valid for painting
-     * @param x1
-     * @return 
+     * 1 <= x1 < width valid for painting @param x1
+     * @r
+     *
+     * e
+     * turn
      */
     private boolean isValidCoordinateX(int x1) {
-        return x1 < width && x1 >=1;
+        return x1 < width && x1 >= 1;
     }
 
     char[][] drawRectangle(int x1, int y1, int x2, int y2) {
-        if(isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)){
+        if (isValidCoordinate(x1, y1) && isValidCoordinate(x2, y2)) {
             int min_x = Math.min(x1, x2);
-            int max_x =Math.max(x1, x2);
-            
+            int max_x = Math.max(x1, x2);
+
             int min_y = Math.min(y1, y2);
             int max_y = Math.max(y1, y2);
-            
-            for(int h = min_y; h<=max_y ;h++){
-                for (int w=min_x; w <= max_x; w++){
-                   //  -------------------- 
-                  if(h ==min_y || h==max_y){
-                      content[w][h]='x';
-                  }
-                  //|||||||||||
-                  else if(w ==min_x || w== max_x){
-                    content[w][h]='x';
-                  }
+
+            for (int h = min_y; h <= max_y; h++) {
+                for (int w = min_x; w <= max_x; w++) {
+                    //  -------------------- 
+                    if (h == min_y || h == max_y) {
+                        content[w][h] = 'x';
+                    } //|||||||||||
+                    else if (w == min_x || w == max_x) {
+                        content[w][h] = 'x';
+                    }
                 }
             }
-        
+
         }
-          return content;
+        return content;
     }
 
+    char[][] BucketFill(int x, int y, char new_color) {
+
+        //original coord valid && it was not nodified (new_color)
+        if (isValidCoordinate(x, y) && content[x][y] != new_color) {
+            char previous_color = content[x][y];
+            fillWithColor(x, y, previous_color, new_color);
+        }else{
+            printCanvas();
+            return content;
+        }
+        
+        return content;
+    }
+
+    /**
+     * initial point with a previous_color
+     *
+     * @param coord_x1
+     * @param coord_y1
+     *
+     * candidate with same previous color
+     * @param x
+     * @param y
+     *
+     * to paint
+     * @param new_color
+     */
+    void  fillWithColor(int x, int y, char previous_color, char new_color) {
+
+        // make sure row and col are inside the canvas
+        if (isValidCoordinate(x, y) && content[x][y] == previous_color) {
+            content[x][y] = new_color;
+
+            fillWithColor(x, y + 1, previous_color, new_color);
+            fillWithColor(x, y - 1, previous_color, new_color);
+            fillWithColor(x + 1, y, previous_color, new_color);
+            fillWithColor(x - 1, y, previous_color, new_color);
+        } else {
+            printCanvas();
+            return;
+        }
+                
+    }
 
 }
