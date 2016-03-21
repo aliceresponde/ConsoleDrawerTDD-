@@ -104,7 +104,7 @@ public class CanvasTest {
      
       assertArrayEquals(expectResult, canvas.getContent());
       canvas.printCanvas();
-        System.out.println(canvas.getContent().toString());
+      
       
     
     }
