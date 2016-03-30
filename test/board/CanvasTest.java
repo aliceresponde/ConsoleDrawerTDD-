@@ -37,8 +37,8 @@ public class CanvasTest {
         int w = 20;
         int h = 4;
 
-        canvas = new Canvas();
-        canvas.createCanvas(w, h);
+        canvas = new Canvas(w,h);
+        
     }
 
     @After
@@ -50,17 +50,16 @@ public class CanvasTest {
       System.out.println("***************************************");
       System.out.println("*BucketFill"); 
    
-      
       char new_color = 'o';
 //    original canvas 
 
       System.out.println("CREATED CANVAS"); 
-      canvas.createCanvas(20, 4);
+      Canvas canvas = new Canvas(20, 4);
       canvas.drawRectangle(16, 1, 20, 3);
       canvas.DrawLine(1, 2, 6, 2);
       canvas.DrawLine(6, 3, 6, 4);
      
-      canvas.printCanvas();
+        System.out.println(canvas.toString());
       
       char[][] expectResult = new char[][]{
             {'-', '|', '|', '|', '|', '-'},
@@ -102,11 +101,10 @@ public class CanvasTest {
       int y1 = 3;
        canvas.BucketFill( x1, y1, new_color);
      
-      assertArrayEquals(expectResult, canvas.getContent());
-      canvas.printCanvas();
+      assertArrayEquals(expectResult, canvas.getContent()); 
       
       
-    
+      
     }
 
     @Test
@@ -116,6 +114,8 @@ public class CanvasTest {
 
         int w = 20;
         int h = 4;
+        
+        Canvas canvasInstance = new Canvas(w, h);
 
         final int x1 = 16;
         final int y1 = 1;
@@ -148,6 +148,7 @@ public class CanvasTest {
         };
 
         System.out.println("canvas expectedResult");
+        
 
         for (int y = 0; y < h + 2; y++) {
             for (int x = 0; x < w + 2; x++) {
@@ -157,10 +158,10 @@ public class CanvasTest {
         }
 
         System.out.println("canvas Result");
-        char[][] result = canvas.drawRectangle(x1, y1, x2, y2);
-        canvas.printCanvas();
+        canvas.drawRectangle(x1, y1, x2, y2);
+        System.out.println(canvas.toString());
 
-        assertArrayEquals(expectResult, result);
+        assertArrayEquals(expectResult, canvas.getContent());
 
     }
 
@@ -177,7 +178,7 @@ public class CanvasTest {
         final int w = 20;
         final int h = 4;
 
-        canvas.createCanvas(w, h);
+        Canvas canvasInstance = new Canvas(w,h);
 
         boolean expectedResult = true;
        
@@ -219,12 +220,11 @@ public class CanvasTest {
         int y2 = 2;
 
         int height = 4;
-        int width = 20;
-
-        Canvas canvasInstance = new Canvas();
-
+        int width = 20;   
+        
+        Canvas canvasInstance = new Canvas(width, height);
         System.out.println("Original canvas");
-        canvasInstance.createCanvas(width, height);
+        
 
         char[][] expectResult = new char[][]{
             {'-', '|', '|', '|', '|', '-'},
@@ -261,8 +261,8 @@ public class CanvasTest {
         }
 
         //line horizontal-------------------------------------------------
-        char[][] result = canvasInstance.DrawLine(x1, y1, x2, y2);
-        assertArrayEquals(expectResult, result);
+        canvasInstance.DrawLine(x1, y1, x2, y2);
+        assertArrayEquals(expectResult, canvasInstance.getContent());
 
         expectResult = new char[][]{
             {'-', '|', '|', '|', '|', '-'},
@@ -304,8 +304,9 @@ public class CanvasTest {
         y2 = 4;
         canvasInstance.DrawLine(x1, y1, x2, y2);
 
-        System.out.println("canvasResult");
-        canvasInstance.printCanvas();
+        System.out.println("canvasResult" );
+        System.out.println(canvasInstance.toString());
+        
 
     }
 
@@ -319,9 +320,9 @@ public class CanvasTest {
         int height = 4;
         int width = 20;
 
-        Canvas canvasInstance = new Canvas();
+        Canvas canvasInstance = new Canvas(width, height);
         System.out.println("Original canvas");
-        canvasInstance.createCanvas(width, height);
+        
 
         //Vertical
         final int x1 = 6;
@@ -364,10 +365,10 @@ public class CanvasTest {
         }
 
         System.out.println("canvasResult");
-        char[][] result = canvasInstance.drawVerticalLine(x1, y1, x2, y2);
-        canvasInstance.printCanvas();
+        canvasInstance.drawVerticalLine(x1, y1, x2, y2);
+        
 
-        assertArrayEquals(expectResult, result);
+        assertArrayEquals(expectResult, canvasInstance.getContent());
 
     }
 
@@ -387,10 +388,9 @@ public class CanvasTest {
         final int x2 = 6;
         final int y2 = 2;
 
-        Canvas canvasInstance = new Canvas();
+        Canvas canvasInstance = new Canvas(20,4);
         System.out.println("Original canvas");
-        canvasInstance.createCanvas(width, height);
-
+        
         char[][] expectResult = new char[][]{
             {'-', '|', '|', '|', '|', '-'},
             {'-', ' ', 'x', ' ', ' ', '-'},
@@ -426,8 +426,8 @@ public class CanvasTest {
         }
 
         System.out.println("canvasResult");
-        char[][] result = canvasInstance.drawHorizontalLine(x1, y1, x2, y2);
-        assertArrayEquals(expectResult, result);
+        canvasInstance.drawHorizontalLine(x1, y1, x2, y2);
+        assertArrayEquals(expectResult, canvasInstance.getContent());
     }
 
     /**
@@ -440,7 +440,6 @@ public class CanvasTest {
         int height = 4;
         int width = 20;
 
-        Canvas canvasInstance = new Canvas();
         char[][] result;
         char[][] expectResult = new char[][]{
             {'-', '|', '|', '|', '|', '-'},
@@ -476,8 +475,9 @@ public class CanvasTest {
             System.out.println("");
         }
         System.out.println("canvas");
+        
 
-        result = canvasInstance.createCanvas(width, height);
+        result = new Canvas(width, height).getContent();
         assertArrayEquals(expectResult, result);
     }
 }

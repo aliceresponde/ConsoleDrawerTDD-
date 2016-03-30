@@ -30,8 +30,7 @@ public class MainClass {
             if(input.contains("C")){
                 System.out.println("Create canvas");
                 input_array =  input.split(" ");
-                System.out.println(input_array.length);
-                        
+                
             }
             else if(input.contains("L")){
                 System.out.println("DrawLine");
