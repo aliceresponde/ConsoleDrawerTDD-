@@ -1,0 +1,18 @@
+# compiled files
+*.class
+
+# gradle files
+.gradle/
+
+build/
+
+# Intellij files
+.idea/
+
+# Netbeans files
+
+nbproject/
+
+build.xml
+
+manifest.mf
